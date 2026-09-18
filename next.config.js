@@ -10,6 +10,7 @@ const nextConfig = {
     unoptimized: true, // required for static export; use manual <Image> sizing
   },
 
+<<<<<<< HEAD
   // Turbopack needs an explicit loader for statically imported MDX modules.
   turbopack: {
     rules: {
@@ -24,12 +25,29 @@ const nextConfig = {
     },
   },
 
+=======
+>>>>>>> fdb7894ab14740a936cf61d652dfaa423cf06dd4
   // NO redirects()/rewrites()/headers() here — output:"export" is a hard,
   // undocumented-workaround incompatibility with all three (Next's own
   // "Export Custom Routes" error page: these configs simply don't apply to
   // a manually exported app). The bare "/" -> "/si" redirect that used to
   // live here is now handled by a real static page instead: app/page.tsx.
 
+<<<<<<< HEAD
+=======
+  // NO @next/mdx / withMDX() wrapping, and NO experimental.mdxRs — removed.
+  // @next/mdx exists to let you `import Page from './page.mdx'` directly,
+  // which requires pageExtensions + a bundler loader (webpack pre-16,
+  // Turbopack-aware in 16+ only on recent @next/mdx versions). This project
+  // never does that: every .mdx file is read via fs.readFile and compiled
+  // at RUNTIME through next-mdx-remote/rsc's <MDXRemote>, specifically so
+  // lib/content.ts can scan frontmatter and drive routing/sitemap/metadata
+  // from one source (see Phase 1). @next/mdx was never load-bearing here —
+  // it was dead weight that registered a bundler hook, which is exactly
+  // what Next 16's "Turbopack + webpack config with no turbopack config"
+  // guard rejects. Deleting the dependency (see package.json) is the fix,
+  // not adding turbopack.rules for it.
+>>>>>>> fdb7894ab14740a936cf61d652dfaa423cf06dd4
 };
 
 module.exports = nextConfig;

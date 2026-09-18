@@ -78,6 +78,7 @@ it end-to-end.
    `router.replace()`s to `/si` on mount, with a `<meta http-equiv="refresh">`
    fallback for no-JS clients and crawlers. This page pre-renders to a real
    static `out/index.html`, so it works on any static host.
+<<<<<<< HEAD
 2. **Native Next MDX pipeline.** Local `content/**/*.mdx` is compiled by
    the official `@next/mdx` integration during the Next build, with
    `remark-frontmatter` + `remark-mdx-frontmatter` preserving the existing
@@ -88,6 +89,23 @@ it end-to-end.
 3. **`package.json` targets current stable Next 16 / React 19.3** and pins the
    Node.js floor required by Next 16. ESLint is invoked directly because the
    `next lint` command was removed in Next 16.
+=======
+2. **`@next/mdx` removed — the source of the Next 16 Turbopack build
+   error.** The error ("this build is using Turbopack, with a webpack
+   config and no turbopack config") came from `@next/mdx`'s `withMDX()`
+   wrapper, which exists only to support directly `import`-ing `.mdx` files
+   as pages/components (via `pageExtensions` + a bundler loader). This
+   project never does that — every `.mdx` file is read via `fs.readFile`
+   and compiled at *runtime* through `next-mdx-remote/rsc`, specifically so
+   `lib/content.ts` can scan frontmatter and drive routing/sitemap/metadata
+   from one source. `@next/mdx`, `@mdx-js/loader`, and `@mdx-js/react` were
+   unused dead weight that happened to register a bundler hook — removed
+   from `next.config.js` and `package.json`. Kept `@types/mdx` (type-only,
+   zero runtime deps) since `components/mdx/mdx-components.tsx` still
+   imports the `MDXComponents` type from `mdx/types`.
+3. **`package.json` bumped to Next 16 / React 19** to match the version
+   that surfaced these errors (was pinned to Next 14 / React 18 originally).
+>>>>>>> fdb7894ab14740a936cf61d652dfaa423cf06dd4
 
 ### Still open
 
