@@ -1,0 +1,33 @@
+---
+title: "සැබෑ සංඛ්‍යා"
+description: "Classifying real numbers with a drag-and-drop Venn diagram"
+order: 1
+exerciseCount: 2
+---
+
+import { RealNumberVennLazy } from "@/components/interactive/real-number-venn-loader";
+import { StrictExamStepperLazy } from "@/components/interactive/strict-exam-stepper-loader";
+import { ExerciseGate } from "@/components/interactive/exercise-gate";
+import { GRADE11_REAL_NUMBERS_QUICK_CHECK } from "@/content/exercise-defs/grade11-real-numbers-check";
+
+# සැබෑ සංඛ්‍යා
+
+This unit has two exercises. The second one only unlocks once you complete the first —
+classify every number correctly before the quick check appears.
+
+Drag each number to where it belongs. After three wrong attempts on any number, a hint appears.
+
+<ExerciseGate itemKey="si/grade-11/01-real-numbers" exerciseId="ex-1-venn" index={1} total={2} title="Classify every number">
+  <RealNumberVennLazy />
+</ExerciseGate>
+
+<ExerciseGate
+  itemKey="si/grade-11/01-real-numbers"
+  exerciseId="ex-2-quick-check"
+  index={2}
+  total={2}
+  title="Quick check"
+  requiredExerciseId="ex-1-venn"
+>
+  <StrictExamStepperLazy exam={GRADE11_REAL_NUMBERS_QUICK_CHECK} locale="si" headingLevel={4} />
+</ExerciseGate>

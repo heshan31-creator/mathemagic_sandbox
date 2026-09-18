@@ -1,0 +1,37 @@
+---
+title: "පරිධිය සහ අංශක"
+description: "Perimeter and sectors — interactive angle exploration"
+order: 1
+exerciseCount: 2
+---
+
+import { InteractiveSectorLazy } from "@/components/interactive/interactive-sector-loader";
+import { StrictExamStepperLazy } from "@/components/interactive/strict-exam-stepper-loader";
+import { ExerciseGate } from "@/components/interactive/exercise-gate";
+import { AdBreak } from "@/components/ads/mdx-ad-break";
+import { GRADE10_PERIMETER_QUICK_CHECK } from "@/content/exercise-defs/grade10-perimeter-check";
+
+# පරිධිය සහ අංශක
+
+This unit has two exercises. The second one only unlocks once you complete the first —
+finish the interactive angle exploration before the quick check appears.
+
+<AdBreak/>
+
+Drag the point around the circle until the sector reaches a semicircle (180°) —
+watch the fraction and arc-length formula update live as you go.
+
+<ExerciseGate itemKey="si/grade-10/01-perimeter" exerciseId="ex-1-sector" index={1} total={2} title="Reach the semicircle">
+  <InteractiveSectorLazy targetDegrees={180} targetLabel="අර්ධ වෘත්තය (180°)" />
+</ExerciseGate>
+
+<ExerciseGate
+  itemKey="si/grade-10/01-perimeter"
+  exerciseId="ex-2-quick-check"
+  index={2}
+  total={2}
+  title="Quick check"
+  requiredExerciseId="ex-1-sector"
+>
+  <StrictExamStepperLazy exam={GRADE10_PERIMETER_QUICK_CHECK} locale="si" headingLevel={4} />
+</ExerciseGate>
