@@ -1,19 +1,16 @@
 import type { ReactNode } from "react";
 import Script from "next/script";
-import { Inter } from "next/font/google";
+import { Inter, Noto_Sans_Sinhala, Noto_Sans_Tamil } from "next/font/google";
 import { ADSENSE_CLIENT_ID } from "@/lib/ad-config";
 import "./globals.css";
 
-// next/font self-hosts + preloads, so there's no external font-request
-// waterfall and no FOIT/FOUT reflow — this is the CLS fix for Latin text.
-// NOTE: Sinhala/Tamil body copy needs Noto Sans Sinhala / Noto Sans Tamil
-// loaded the same way and applied per-locale — not yet wired in, flagged
-// in README.md.
 const inter = Inter({ subsets: ["latin"], display: "swap", variable: "--font-inter" });
+const notoSinhala = Noto_Sans_Sinhala({ subsets: ["sinhala"], display: "swap", variable: "--font-noto-sinhala" });
+const notoTamil = Noto_Sans_Tamil({ subsets: ["tamil"], display: "swap", variable: "--font-noto-tamil" });
 
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
-    <html lang="en" className={inter.variable}>
+    <html lang="en" className={`${inter.variable} ${notoSinhala.variable} ${notoTamil.variable}`}>
       <body>
         {children}
 

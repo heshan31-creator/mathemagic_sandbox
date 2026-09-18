@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-labelledby="title desc">
+  <title id="title">Mathemagic Sandbox logo mark</title>
+  <desc id="desc">A clean geometric symbol combining a mathematical graph, connected learning nodes, a sparkle, and a sandbox base.</desc>
+  <defs>
+    <linearGradient id="base" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#328E6E"/>
+      <stop offset="1" stop-color="#67AE6E"/>
+    </linearGradient>
+    <linearGradient id="curve" x1="0" y1="1" x2="1" y2="0">
+      <stop offset="0" stop-color="#67AE6E"/>
+      <stop offset="1" stop-color="#90C67C"/>
+    </linearGradient>
+  </defs>
+  <rect x="24" y="24" width="464" height="464" rx="112" fill="#245F4B"/>
+  <rect x="48" y="48" width="416" height="416" rx="88" fill="#2C7159"/>
+  <path d="M122 330V148" fill="none" stroke="#E1EEBC" stroke-width="15" stroke-linecap="round"/>
+  <path d="M122 330H394" fill="none" stroke="#E1EEBC" stroke-width="15" stroke-linecap="round"/>
+  <path d="M122 148l-17 22h34z" fill="#E1EEBC"/>
+  <path d="M394 330l-22-17v34z" fill="#E1EEBC"/>
+  <path d="M122 297 C164 288 164 224 207 216 C251 208 257 309 303 309 C337 309 348 278 394 244" fill="none" stroke="url(#curve)" stroke-width="24" stroke-linecap="round" stroke-linejoin="round"/>
+  <circle cx="207" cy="216" r="13" fill="#E1EEBC"/>
+  <circle cx="303" cy="309" r="13" fill="#90C67C"/>
+  <circle cx="394" cy="244" r="13" fill="#67AE6E"/>
+  <path d="M207 216L257 174L303 198L347 164" fill="none" stroke="#90C67C" stroke-width="12" stroke-linecap="round" stroke-linejoin="round"/>
+  <circle cx="257" cy="174" r="11" fill="#E1EEBC"/>
+  <circle cx="347" cy="164" r="11" fill="#90C67C"/>
+  <path d="M365 92 C372 116 386 128 410 135 C386 142 372 156 365 181 C358 156 344 142 320 135 C344 128 358 116 365 92Z" fill="#E1EEBC"/>
+  <path d="M93 350 Q256 388 419 350 L397 422 Q256 482 115 422Z" fill="url(#base)"/>
+  <path d="M95 350 Q128 329 163 339 Q198 349 229 337 Q257 326 287 338 Q319 350 349 338 Q384 325 417 350 Q256 392 95 350Z" fill="#E1EEBC"/>
+  <path d="M161 374 Q256 393 351 374" fill="none" stroke="#C6DE97" stroke-width="9" stroke-linecap="round"/>
+</svg>

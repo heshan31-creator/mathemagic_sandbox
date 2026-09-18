@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import { siteConfig } from "@/lib/site-config";
 import { locales, localeLabels, type Locale } from "@/lib/i18n";
 
@@ -16,14 +17,13 @@ export function SiteFooter({ locale }: SiteFooterProps) {
           <div className="mm-footer-brand">
             <div className="mm-brand">
               <div className="mm-brand-mark" aria-hidden="true">
-                <svg viewBox="0 0 24 24" fill="none">
-                  <path
-                    d="M5 17V7m0 5 5-5m-5 5 5 5M13 7h6m-3 0v10m0 0h3"
-                    stroke="currentColor"
-                    strokeWidth="2"
-                    strokeLinecap="round"
-                  />
-                </svg>
+                {/* CLS-safe image wrapper */}
+                <Image 
+                  src="/logo.svg" 
+                  alt="Mathemagic Sandbox Logo" 
+                  width={32} 
+                  height={32} 
+                />
               </div>
               <div>
                 <span>{siteConfig.shortName}</span>

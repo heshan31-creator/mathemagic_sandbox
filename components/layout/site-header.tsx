@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { LangSwitcher } from "./lang-switcher";
 import { localeLabels, type Locale } from "@/lib/i18n";
 import { siteConfig } from "@/lib/site-config";
@@ -37,15 +38,14 @@ export function SiteHeader({ locale }: SiteHeaderProps) {
         <nav className="mm-container mm-nav" aria-label="Main navigation">
           <Link className="mm-brand" href={home} aria-label={`${siteConfig.name} home`}>
             <div className="mm-brand-mark" aria-hidden="true">
-              <svg viewBox="0 0 24 24" fill="none">
-                <path
-                  d="M5 17V7m0 5 5-5m-5 5 5 5M13 7h6m-3 0v10m0 0h3"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                />
-              </svg>
+              {/* CLS-safe image wrapper. Ensure your logo file is placed at public/logo.svg */}
+              <Image 
+                src="/logo.svg" 
+                alt="Mathemagic Sandbox Logo" 
+                width={32} 
+                height={32} 
+                priority 
+              />
             </div>
             <div>
               <span>{siteConfig.shortName}</span>

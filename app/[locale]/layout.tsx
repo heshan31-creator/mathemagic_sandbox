@@ -22,8 +22,12 @@ export default async function LocaleLayout({
   if (!isLocale(localeParam)) notFound();
   const locale = localeParam as Locale;
 
+  // Determine the correct typography variable based on locale
+  const fontClass = locale === "si" ? "font-sinhala" : "font-tamil";
+
   return (
-    <div data-locale={locale} className="flex min-h-screen flex-col">
+    // Apply the font class to the root wrapper
+    <div data-locale={locale} className={`flex min-h-screen flex-col ${fontClass}`}>
       <SiteHeader locale={locale} />
 
       {/* Directly beneath the nav, above <main> — centered, reserved height,

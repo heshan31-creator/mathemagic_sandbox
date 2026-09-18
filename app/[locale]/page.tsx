@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import { notFound } from "next/navigation";
 import { buildMetadata } from "@/components/seo/metadata";
 import { JsonLd } from "@/components/seo/json-ld";
@@ -6,7 +7,6 @@ import { siteConfig } from "@/lib/site-config";
 import { isLocale, localeStaticParams, type Locale } from "@/lib/i18n";
 import { GradeSwitcher } from "@/components/home/grade-switcher";
 import { TopicSearch } from "@/components/home/topic-search";
-import { HeroDemo } from "@/components/home/hero-demo";
 import { ProgressPanel } from "@/components/home/progress-panel";
 
 interface PageProps {
@@ -95,7 +95,17 @@ export default async function HomePage({ params }: PageProps) {
             </div>
           </div>
 
-          <HeroDemo />
+          {/* Statically optimized Hero Illustration — CLS safe */}
+          <div className="flex justify-center items-center w-full">
+            <Image
+              src="/hero-illustration.svg"
+              alt="Interactive Mathematics Sandbox"
+              width={500}
+              height={400}
+              priority
+              className="w-full h-auto max-w-md"
+            />
+          </div>
         </div>
       </section>
 

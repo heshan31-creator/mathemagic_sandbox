@@ -1,0 +1,131 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 700" fill="none" role="img" aria-labelledby="title desc">
+  <title id="title">Mathemagic Sandbox hero illustration</title>
+  <desc id="desc">A clean mathematical learning illustration with a sandbox board, graph, geometric shapes, equation card, ruler and magic sparkles.</desc>
+
+  <defs>
+    <linearGradient id="panel" x1="250" y1="120" x2="900" y2="560" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#F5F8DE"/>
+      <stop offset="1" stop-color="#EAF2C8"/>
+    </linearGradient>
+    <linearGradient id="mint" x1="370" y1="170" x2="830" y2="510" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#67AE6E"/>
+      <stop offset="1" stop-color="#328E6E"/>
+    </linearGradient>
+    <filter id="shadow" x="-30%" y="-30%" width="160%" height="170%">
+      <feDropShadow dx="0" dy="20" stdDeviation="24" flood-color="#245F4B" flood-opacity="0.16"/>
+    </filter>
+    <filter id="soft" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="14"/>
+    </filter>
+  </defs>
+
+  <!-- soft background accents -->
+  <circle cx="180" cy="150" r="80" fill="#E1EEBC" opacity="0.8"/>
+  <circle cx="1040" cy="530" r="95" fill="#90C67C" opacity="0.18"/>
+  <circle cx="970" cy="140" r="28" fill="#E1EEBC"/>
+  <circle cx="250" cy="560" r="20" fill="#90C67C" opacity="0.5"/>
+
+  <!-- floating dotted orbit -->
+  <path d="M170 360C180 190 360 90 620 88C875 86 1035 220 1024 386" stroke="#90C67C" stroke-width="3" stroke-linecap="round" stroke-dasharray="2 16" opacity="0.7"/>
+
+  <!-- central learning board -->
+  <g filter="url(#shadow)">
+    <rect x="245" y="110" width="710" height="470" rx="38" fill="white"/>
+    <rect x="270" y="135" width="660" height="420" rx="28" fill="url(#panel)"/>
+  </g>
+
+  <!-- board header rail -->
+  <rect x="270" y="135" width="660" height="66" rx="28" fill="#328E6E"/>
+  <circle cx="310" cy="168" r="9" fill="#E1EEBC"/>
+  <circle cx="340" cy="168" r="9" fill="#90C67C"/>
+  <circle cx="370" cy="168" r="9" fill="#E1EEBC" opacity="0.65"/>
+  <rect x="760" y="157" width="130" height="22" rx="11" fill="#245F4B" opacity="0.65"/>
+
+  <!-- grid -->
+  <g stroke="#90C67C" stroke-width="1.6" opacity="0.36">
+    <path d="M315 245H885M315 285H885M315 325H885M315 365H885M315 405H885M315 445H885M315 485H885"/>
+    <path d="M355 225V505M395 225V505M435 225V505M475 225V505M515 225V505M555 225V505M595 225V505M635 225V505M675 225V505M715 225V505M755 225V505M795 225V505M835 225V505"/>
+  </g>
+
+  <!-- coordinate axes -->
+  <path d="M350 470V235M350 470H865" stroke="#245F4B" stroke-width="4" stroke-linecap="round"/>
+  <path d="M350 235l-9 16h18l-9-16ZM865 470l-16-9v18l16-9Z" fill="#245F4B"/>
+
+  <!-- smooth curve -->
+  <path d="M385 425C470 338 520 305 585 345C645 382 675 425 725 370C770 320 805 270 845 248" stroke="#328E6E" stroke-width="11" stroke-linecap="round"/>
+  <path d="M385 425C470 338 520 305 585 345C645 382 675 425 725 370C770 320 805 270 845 248" stroke="#E1EEBC" stroke-width="18" stroke-linecap="round" opacity="0.75"/>
+  <path d="M385 425C470 338 520 305 585 345C645 382 675 425 725 370C770 320 805 270 845 248" stroke="#328E6E" stroke-width="7" stroke-linecap="round"/>
+
+  <!-- plotted points -->
+  <circle cx="470" cy="338" r="10" fill="#67AE6E" stroke="white" stroke-width="5"/>
+  <circle cx="585" cy="345" r="10" fill="#67AE6E" stroke="white" stroke-width="5"/>
+  <circle cx="725" cy="370" r="10" fill="#67AE6E" stroke="white" stroke-width="5"/>
+
+  <!-- geometry card -->
+  <g transform="translate(675 240)">
+    <rect width="190" height="150" rx="22" fill="white" stroke="#DDE8B9" stroke-width="3"/>
+    <path d="M34 112L96 30L154 112H34Z" fill="#E1EEBC" stroke="#328E6E" stroke-width="5" stroke-linejoin="round"/>
+    <path d="M65 112L96 70L125 112" stroke="#67AE6E" stroke-width="4" stroke-linecap="round"/>
+    <circle cx="96" cy="70" r="7" fill="#245F4B"/>
+  </g>
+
+  <!-- equation card -->
+  <g transform="translate(315 250)">
+    <rect width="190" height="118" rx="22" fill="white" stroke="#DDE8B9" stroke-width="3"/>
+    <circle cx="32" cy="31" r="12" fill="#90C67C" opacity="0.7"/>
+    <path d="M59 31H152M59 77H152" stroke="#245F4B" stroke-width="7" stroke-linecap="round"/>
+    <path d="M43 77L49 83L59 67" stroke="#328E6E" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+  </g>
+
+  <!-- ruler -->
+  <g transform="translate(835 450) rotate(13)">
+    <rect x="0" y="0" width="185" height="46" rx="12" fill="#67AE6E"/>
+    <rect x="12" y="9" width="160" height="28" rx="7" fill="#E1EEBC" opacity="0.95"/>
+    <g stroke="#245F4B" stroke-width="2">
+      <path d="M30 9V22M48 9V18M66 9V22M84 9V18M102 9V22M120 9V18M138 9V22M156 9V18"/>
+    </g>
+  </g>
+
+  <!-- compass-like angle tool -->
+  <g transform="translate(175 360) rotate(-18)">
+    <path d="M0 96L52 12L104 96" stroke="#245F4B" stroke-width="10" stroke-linecap="round" stroke-linejoin="round"/>
+    <circle cx="52" cy="12" r="13" fill="#90C67C" stroke="#245F4B" stroke-width="5"/>
+    <path d="M15 98L36 122M89 98L69 122" stroke="#328E6E" stroke-width="8" stroke-linecap="round"/>
+  </g>
+
+  <!-- stacked mini cards -->
+  <g transform="translate(1000 260)">
+    <rect x="0" y="0" width="92" height="108" rx="20" fill="#328E6E" opacity="0.18" transform="rotate(8 46 54)"/>
+    <rect x="0" y="0" width="92" height="108" rx="20" fill="white" stroke="#DDE8B9" stroke-width="3" transform="rotate(8 46 54)"/>
+    <path d="M25 73L47 27L69 73" stroke="#328E6E" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+    <circle cx="47" cy="49" r="6" fill="#90C67C"/>
+  </g>
+
+  <!-- sandbox base -->
+  <path d="M215 590C355 635 838 639 990 582" stroke="#E1EEBC" stroke-width="28" stroke-linecap="round"/>
+  <path d="M215 590C355 635 838 639 990 582" stroke="#328E6E" stroke-width="6" stroke-linecap="round" opacity="0.7"/>
+
+  <!-- magic sparkles -->
+  <g fill="#90C67C">
+    <path d="M104 202L111 222L131 229L111 236L104 256L97 236L77 229L97 222L104 202Z"/>
+    <path d="M1040 188L1045 202L1059 207L1045 212L1040 226L1035 212L1021 207L1035 202L1040 188Z"/>
+    <path d="M922 78L928 95L945 101L928 107L922 124L916 107L899 101L916 95L922 78Z"/>
+  </g>
+  <g fill="#67AE6E">
+    <circle cx="125" cy="310" r="7"/>
+    <circle cx="1075" cy="420" r="8"/>
+    <circle cx="1010" cy="108" r="6"/>
+  </g>
+
+  <!-- connecting learning nodes -->
+  <path d="M195 294C228 276 241 258 270 245" stroke="#67AE6E" stroke-width="3" stroke-linecap="round" stroke-dasharray="5 9" opacity="0.8"/>
+  <path d="M930 205C962 215 989 229 1012 248" stroke="#67AE6E" stroke-width="3" stroke-linecap="round" stroke-dasharray="5 9" opacity="0.8"/>
+
+  <!-- small M graph motif matching logo -->
+  <g transform="translate(115 105)">
+    <path d="M0 64V8L35 40L70 8V64" stroke="#245F4B" stroke-width="10" stroke-linecap="round" stroke-linejoin="round"/>
+    <circle cx="0" cy="64" r="7" fill="#67AE6E"/>
+    <circle cx="35" cy="40" r="7" fill="#67AE6E"/>
+    <circle cx="70" cy="64" r="7" fill="#67AE6E"/>
+  </g>
+</svg>
