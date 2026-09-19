@@ -3,12 +3,13 @@ import { InteractiveSectorLazy } from '@/components/interactive/interactive-sect
 import { RealNumberVennLazy } from '@/components/interactive/real-number-venn-loader'
 import { AdBreak } from '@/components/ads/mdx-ad-break'
 
-const components: MDXComponents = {
-  InteractiveSectorLazy,
-  RealNumberVennLazy,
-  AdBreak,
-}
-
-export function useMDXComponents(): MDXComponents {
-  return components
+export function useMDXComponents(components: MDXComponents): MDXComponents {
+  return {
+    // Allows Next.js to inject standard HTML elements (p, h1, etc.)
+    ...components,
+    // Maps your custom React components
+    InteractiveSectorLazy,
+    RealNumberVennLazy,
+    AdBreak,
+  }
 }
