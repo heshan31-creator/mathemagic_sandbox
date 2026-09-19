@@ -1,0 +1,8 @@
+{
+  "name": "mathemagic-sandbox",
+  "compatibility_date": "2026-09-19",
+  "assets": {
+    "directory": "./out",
+    "not_found_handling": "404-page"
+  }
+}
