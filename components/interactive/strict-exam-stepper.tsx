@@ -15,6 +15,7 @@ const VALIDATION_ERROR_TEXT: Record<Locale, string> = {
 
 interface UiText {
   step: string;
+  unavailableStep: string;
   submit: string;
   nextStep: string;
   finish: string;
@@ -29,6 +30,7 @@ interface UiText {
 const UI_TEXT: Record<Locale, UiText> = {
   si: {
     step: "පියවර",
+    unavailableStep: "පියවර තොරතුරු ලබා ගත නොහැක",
     submit: "ඉදිරිපත් කරන්න",
     nextStep: "ඊළඟ පියවර",
     finish: "අවසන් කරන්න",
@@ -42,6 +44,7 @@ const UI_TEXT: Record<Locale, UiText> = {
   },
   ta: {
     step: "படி",
+    unavailableStep: "படி விவரங்கள் கிடைக்கவில்லை",
     submit: "சமர்ப்பிக்கவும்",
     nextStep: "அடுத்த படி",
     finish: "முடிக்கவும்",
@@ -73,6 +76,7 @@ interface StrictExamStepperProps {
 
 export function StrictExamStepper({ exam, locale, headingLevel = 2, progressKey, onComplete }: StrictExamStepperProps) {
   const loadExam = useExamStore((s) => s.loadExam);
+  const activeExamId = useExamStore((s) => s.exam?.id);
   const currentStepIndex = useExamStore((s) => s.currentStepIndex);
   const stepRuntime = useExamStore((s) => s.stepRuntime);
   const finished = useExamStore((s) => s.finished);
@@ -106,14 +110,14 @@ export function StrictExamStepper({ exam, locale, headingLevel = 2, progressKey,
   }, [progressKey, step, runtime?.correct, completeExercise]);
 
   useEffect(() => {
-    if (finished) {
+    if (finished && activeExamId === exam.id) {
       onComplete?.();
     }
     // Intentionally re-fires if `finished` goes false→true again after a
     // retake — completeExercise() on the caller's side is idempotent.
-  }, [finished, onComplete]);
+  }, [activeExamId, exam.id, finished, onComplete]);
 
-  if (finished) {
+  if (finished && activeExamId === exam.id) {
     return (
       <ScoreDashboard
         summary={computeScore()}
@@ -229,14 +233,15 @@ function ScoreDashboard({ summary, exam, locale, headingLevel, onRetake }: Score
 
       <div className="max-h-56 space-y-2 overflow-y-auto pr-1">
         {summary.stepResults.map((result, i) => {
-          const step = exam.steps.find((s) => s.id === result.stepId)!;
+          const step = exam.steps.find((s) => s.id === result.stepId);
           return (
             <div key={result.stepId} className="flex items-center justify-between rounded-lg border border-[#dce8dc] px-3 py-2 text-sm">
               <span>
-                {t.step} {i + 1}: {step.title[locale]}
+                {t.step} {i + 1}:{" "}
+                {step ? step.title[locale] : `${t.unavailableStep} (${result.stepId})`}
               </span>
               <span className="font-bold">
-                {result.pointsAwarded} / {step.maxPoints}
+                {result.pointsAwarded} / {step?.maxPoints ?? "—"}
               </span>
             </div>
           );
