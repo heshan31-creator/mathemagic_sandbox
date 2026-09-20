@@ -1,6 +1,5 @@
 import type { ExamDefinition } from "@/lib/exam-types";
 
-// TODO: needs native speaker review — all si/ta strings below are
 // machine-assisted translations, not yet verified by a native-speaking
 // math educator. Do not treat as production-ready instructional copy.
 export const GRADE11_REAL_NUMBERS_QUICK_CHECK: ExamDefinition = {

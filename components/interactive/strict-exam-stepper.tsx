@@ -6,6 +6,7 @@ import { useExamStore } from "@/store/exam-store";
 import { useProgressStore } from "@/store/progress-store";
 import { validateAnswer } from "@/lib/answer-validator";
 import type { ExamDefinition } from "@/lib/exam-types";
+import { groupStepsIntoQuestions } from "@/lib/lesson-model";
 import type { Locale } from "@/lib/i18n";
 
 const VALIDATION_ERROR_TEXT: Record<Locale, string> = {
@@ -76,10 +77,14 @@ interface StrictExamStepperProps {
 
 export function StrictExamStepper({ exam, locale, headingLevel = 2, progressKey, onComplete }: StrictExamStepperProps) {
   const loadExam = useExamStore((s) => s.loadExam);
-  const activeExamId = useExamStore((s) => s.exam?.id);
-  const currentStepIndex = useExamStore((s) => s.currentStepIndex);
-  const stepRuntime = useExamStore((s) => s.stepRuntime);
-  const finished = useExamStore((s) => s.finished);
+  // The store is now keyed by examId (see store/exam-store.ts) so a page can
+  // host several exercise sets without them overwriting each other. This
+  // component still shows ONE step at a time, which is the correct model for
+  // a timed past-paper simulation; the lesson stream uses QuestionStream.
+  const runtimeMap = useExamStore((s) => s.exams[exam.id]);
+  const stepCursor = useExamStore((s) => s.exams[exam.id]?.stepCursor);
+  const stepRuntimeMap = useExamStore((s) => s.exams[exam.id]?.stepRuntime);
+  const finished = useExamStore((s) => s.exams[exam.id]?.finished ?? false);
   const submitStepAnswer = useExamStore((s) => s.submitStepAnswer);
   const dismissHint = useExamStore((s) => s.dismissHint);
   const advanceStep = useExamStore((s) => s.advanceStep);
@@ -97,8 +102,11 @@ export function StrictExamStepper({ exam, locale, headingLevel = 2, progressKey,
 
   // Computed (not hooked) before any early return, so the two effects below
   // can safely depend on them without breaking the Rules of Hooks.
+  // Flat step index across the whole exam, derived from the per-question
+  // cursors the store now keeps.
+  const currentStepIndex = computeFlatStepIndex(exam, stepCursor, runtimeMap?.completedQuestionIds);
   const step = exam.steps[currentStepIndex];
-  const runtime = step ? stepRuntime[step.id] : undefined;
+  const runtime = step && stepRuntimeMap ? stepRuntimeMap[step.id] : undefined;
 
   // Record each step's first correct answer against the parent item
   // (a unit or a past paper) as soon as it happens — this is what lets the
@@ -110,21 +118,21 @@ export function StrictExamStepper({ exam, locale, headingLevel = 2, progressKey,
   }, [progressKey, step, runtime?.correct, completeExercise]);
 
   useEffect(() => {
-    if (finished && activeExamId === exam.id) {
+    if (finished) {
       onComplete?.();
     }
     // Intentionally re-fires if `finished` goes false→true again after a
     // retake — completeExercise() on the caller's side is idempotent.
-  }, [activeExamId, exam.id, finished, onComplete]);
+  }, [exam.id, finished, onComplete]);
 
-  if (finished && activeExamId === exam.id) {
+  if (finished) {
     return (
       <ScoreDashboard
-        summary={computeScore()}
+        summary={computeScore(exam)}
         exam={exam}
         locale={locale}
         headingLevel={headingLevel}
-        onRetake={() => reset()}
+        onRetake={() => reset(exam)}
       />
     );
   }
@@ -134,10 +142,11 @@ export function StrictExamStepper({ exam, locale, headingLevel = 2, progressKey,
   const handleSubmit = () => {
     const result = validateAnswer(answerInput, step.validator);
     setValidationError(result.error === "unparseable" ? VALIDATION_ERROR_TEXT[locale] : null);
-    submitStepAnswer(step.id, result.isCorrect);
+    submitStepAnswer(exam.id, step.id, result.isCorrect);
     setAnswerInput("");
   };
 
+  const currentQuestionId = questionIdForStep(step.id);
   const stepHeadingId = `exam-step-${step.id}-heading`;
   const StepHeading = `h${headingLevel}` as keyof JSX.IntrinsicElements;
   const isLastStep = currentStepIndex === exam.steps.length - 1;
@@ -188,7 +197,7 @@ export function StrictExamStepper({ exam, locale, headingLevel = 2, progressKey,
         <div role="status" className="mt-3 flex items-center justify-between rounded-lg bg-[#E1EEBC] p-3 text-sm text-[#173229]">
           <span>{runtime.hintUsed ? t.correctWithHint(step.hintPenaltyPercent) : t.correctPlain}</span>
           <button
-            onClick={advanceStep}
+            onClick={() => advanceStep(exam, currentQuestionId)}
             aria-label={isLastStep ? t.finish : t.nextStep}
             className="rounded-lg bg-[#245F4B] px-3 py-1.5 text-xs font-bold text-white"
           >
@@ -200,7 +209,7 @@ export function StrictExamStepper({ exam, locale, headingLevel = 2, progressKey,
       {runtime.hintVisible && (
         <div role="status" className="mt-3 rounded-lg bg-[#fef3c7] p-3 text-sm text-[#173229]">
           <strong>{t.hint}:</strong> {step.hintText[locale]}
-          <button onClick={() => dismissHint(step.id)} aria-label={t.dismiss} className="ml-3 text-xs font-bold text-[#245F4B] underline">
+          <button onClick={() => dismissHint(exam.id, step.id)} aria-label={t.dismiss} className="ml-3 text-xs font-bold text-[#245F4B] underline">
             {t.dismiss}
           </button>
         </div>
@@ -253,4 +262,33 @@ function ScoreDashboard({ summary, exam, locale, headingLevel, onRetake }: Score
       </button>
     </section>
   );
+}
+
+/** "q2-arc" -> "q2"; unprefixed ids group alone (mirrors lesson-model). */
+function questionIdForStep(stepId: string): string {
+  const m = /^(q\d+)-/i.exec(stepId);
+  return m?.[1]?.toLowerCase() ?? stepId;
+}
+
+/**
+ * Converts the store's per-question cursors back into a single flat index,
+ * preserving this component's original one-step-at-a-time behaviour on top
+ * of the new question-aware store.
+ */
+function computeFlatStepIndex(
+  exam: ExamDefinition,
+  stepCursor: Record<string, number> | undefined,
+  completedQuestionIds: string[] | undefined,
+): number {
+  if (!stepCursor) return 0;
+  const questions = groupStepsIntoQuestions(exam.steps);
+  let flat = 0;
+  for (const q of questions) {
+    if (completedQuestionIds?.includes(q.id)) {
+      flat += q.steps.length;
+      continue;
+    }
+    return flat + Math.min(stepCursor[q.id] ?? 0, q.steps.length - 1);
+  }
+  return Math.max(0, flat - 1);
 }

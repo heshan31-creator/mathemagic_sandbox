@@ -1,4 +1,5 @@
 export const ADSENSE_CLIENT_ID = process.env.NEXT_PUBLIC_ADSENSE_CLIENT_ID ?? "ca-pub-XXXXXXXXXXXXXXX";
+export const ADSENSE_ENABLED = /^ca-pub-\d{10,}$/.test(ADSENSE_CLIENT_ID);
 
 export const AD_SLOTS = {
   headerLeaderboard: { slotId: "1111111111", reservedHeight: 90 },

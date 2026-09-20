@@ -16,11 +16,10 @@ export interface UnitMeta {
   description: string;
   order: number;
   filePath: string;
-  /** Number of sequentially-gated exercises embedded in this unit's MDX
-   * (via <ExerciseGate>). Used to seed the progress store's total before
-   * any exercise has rendered, and to size the homepage's progress bar
-   * without waiting on a client-only computation. Defaults to 1 for units
-   * that don't declare it yet (treated as a single ungated activity). */
+  /** Number of exercises embedded in this unit's MDX. Used to seed the
+   * progress store's total before any exercise has rendered, and to size the
+   * homepage's progress bar without waiting on a client-only computation.
+   * Defaults to 1 for units that don't declare it yet. */
   exerciseCount: number;
 }
 

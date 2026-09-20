@@ -7,6 +7,7 @@ import { isLocale, type Locale } from "@/lib/i18n";
 import { getMDXModule } from "@/lib/mdx-registry";
 import { TrackVisit } from "@/components/progress/track-visit";
 import { UnitProgressBadge } from "@/components/progress/unit-progress-badge";
+import { LessonHeader } from "@/components/lesson/lesson-header";
 
 interface PageProps {
   params: Promise<{ locale: string; unit: string }>;
@@ -58,9 +59,15 @@ export default async function Grade10UnitPage({ params }: PageProps) {
         href={`/${unit.locale}/grade-10/${unit.slug}`}
         totalExercises={unit.exerciseCount}
       />
-      {/* h1 is the ONLY h1 on this page — the unit title. Everything inside
-          the MDX body (and any embedded exam stepper's heading) nests under it. */}
-      <h1 className="mb-3 text-2xl font-black text-[#173229]">{unit.title}</h1>
+      {/* LessonHeader renders the page's ONLY h1 (the unit title) plus the
+          breadcrumb and learning objective. Everything inside the MDX body
+          (## sections, and the question stream's headings) nests under it. */}
+      <LessonHeader
+        locale={unit.locale}
+        grade="grade-10"
+        title={unit.title}
+        objective={unit.description}
+      />
       <UnitProgressBadge itemKey={itemKey} />
       <JsonLd pageTitle={unit.title} pageDescription={unit.description} pageUrl={pageUrl} />
       <UnitContent />

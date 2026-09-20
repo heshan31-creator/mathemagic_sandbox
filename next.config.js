@@ -1,7 +1,13 @@
+const createMDX = require("@next/mdx");
+
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   // Global canonical-URL hygiene: /unit and /unit/ must not both resolve.
   trailingSlash: false,
+
+  // Treat MDX as a supported Next.js file type. This is also the documented
+  // configuration for dynamic MDX imports when using the App Router.
+  pageExtensions: ["js", "jsx", "md", "mdx", "ts", "tsx"],
 
   // Static export target for Cloudflare Pages / Vercel edge hosting.
   output: "export",
@@ -32,4 +38,15 @@ const nextConfig = {
 
 };
 
-module.exports = nextConfig;
+const withMDX = createMDX({
+  // Keep the existing YAML frontmatter format used by content/*.mdx while
+  // compiling local MDX through Next's native MDX integration.
+  options: {
+    remarkPlugins: [
+      "remark-frontmatter",
+      ["remark-mdx-frontmatter", { name: "frontmatter" }],
+    ],
+  },
+});
+
+module.exports = withMDX(nextConfig);

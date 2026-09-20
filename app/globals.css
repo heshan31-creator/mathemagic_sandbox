@@ -2,6 +2,12 @@
 @tailwind components;
 @tailwind utilities;
 
+:root {
+  --font-inter: Inter, ui-sans-serif, system-ui, sans-serif;
+  --font-noto-sinhala: "Noto Sans Sinhala", "Nirmala UI", sans-serif;
+  --font-noto-tamil: "Noto Sans Tamil", "Nirmala UI", sans-serif;
+}
+
 html {
   scroll-behavior: smooth;
 }
@@ -989,5 +995,45 @@ body {
   }
   .mm-lang {
     padding: 8px 9px;
+  }
+}
+
+/* ==========================================================================
+   Lesson engine — question stream
+   Subtle reveal for a newly-opened question. Deliberately a fade + small
+   rise only: no bounce, no scale, nothing that competes with the
+   mathematical diagrams for attention.
+   ========================================================================== */
+.lesson-question-reveal {
+  animation: mm-question-in 320ms ease-out both;
+}
+
+@keyframes mm-question-in {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* Honour the OS-level reduced-motion setting globally: the reveal animation,
+   the smooth scroll on html, and any transition-based UI all collapse to
+   instant. This is the single place that guarantee is enforced. */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  .lesson-question-reveal {
+    animation: none;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
   }
 }

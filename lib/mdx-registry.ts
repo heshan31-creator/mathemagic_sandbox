@@ -2,6 +2,7 @@ import type { ComponentType } from "react";
 
 import SiGrade10Perimeter from "@/content/si/grade-10/01-perimeter.mdx";
 import SiGrade11RealNumbers from "@/content/si/grade-11/01-real-numbers.mdx";
+import TaGrade10Perimeter from "@/content/ta/grade-10/01-perimeter.mdx";
 
 export type MDXModule = ComponentType;
 
@@ -24,7 +25,9 @@ export const mdxRegistry: MDXRegistry = {
     },
   },
   ta: {
-    "grade-10": {},
+    "grade-10": {
+      "01-perimeter": TaGrade10Perimeter,
+    },
     "grade-11": {},
   },
 };

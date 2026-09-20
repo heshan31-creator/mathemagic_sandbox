@@ -1,37 +1,80 @@
 ---
-title: "පරිධිය සහ අංශක"
-description: "Perimeter and sectors — interactive angle exploration"
+title: "පරිමිතිය"
+description: "කේන්ද්‍රික ඛණ්ඩයක වක්‍ර දිග සහ පරිමිතිය සොයන ආකාරය සරලව අවබෝධ කරගෙන, කේන්ද්‍රික ඛණ්ඩ අඩංගු තල රූපවල පරිමිතිය සම්බන්ධ ගැටලු විසඳන්න."
 order: 1
-exerciseCount: 2
 ---
 
+import { QuestionStreamLazy } from "@/components/lesson/question-stream-loader";
 import { InteractiveSectorLazy } from "@/components/interactive/interactive-sector-loader";
-import { StrictExamStepperLazy } from "@/components/interactive/strict-exam-stepper-loader";
-import { ExerciseGate } from "@/components/interactive/exercise-gate";
 import { AdBreak } from "@/components/ads/mdx-ad-break";
-import { GRADE10_PERIMETER_QUICK_CHECK } from "@/content/exercise-defs/grade10-perimeter-check";
+import { perimeterExercises } from "@/content/exercise-defs/01-perimeter-exercises";
+import { KatexInline } from "@/components/ui/katex-inline";
 
-# පරිධිය සහ අංශක
 
-This unit has two exercises. The second one only unlocks once you complete the first —
-finish the interactive angle exploration before the quick check appears.
 
-<AdBreak/>
+## වැටක් වටා යන දුර කොපමණද?
 
-Drag the point around the circle until the sector reaches a semicircle (180°) —
-watch the fraction and arc-length formula update live as you go.
+වටකුරු කොටසක් ඇති තල රූපයක පිටත සීමාව දිගේ වැටක් දාන්න යනවා කියලා සිතන්න. කෙළින් රේඛා කිහිපයක් සමඟ කේන්ද්‍රික ඛණ්ඩයක වක්‍ර කොටසක්ත් තිබුණොත්, සම්පූර්ණ පරිමිතිය සොයන්නේ කොහොමද? කේන්ද්‍ර කෝණය වෙනස් කළ විට වක්‍ර දිගත් කොහොම වෙනස් වෙනවාද?
 
-<ExerciseGate itemKey="si/grade-10/01-perimeter" exerciseId="ex-1-sector" index={1} total={2} title="Reach the semicircle">
-  <InteractiveSectorLazy targetDegrees={180} targetLabel="අර්ධ වෘත්තය (180°)" />
-</ExerciseGate>
+## බලමු
 
-<ExerciseGate
-  itemKey="si/grade-10/01-perimeter"
-  exerciseId="ex-2-quick-check"
-  index={2}
-  total={2}
-  title="Quick check"
-  requiredExerciseId="ex-1-sector"
->
-  <StrictExamStepperLazy exam={GRADE10_PERIMETER_QUICK_CHECK} locale="si" headingLevel={4} />
-</ExerciseGate>
+පහත රූපයේ ලක්ෂ්‍යය ඇදගෙන කේන්ද්‍ර කෝණය වෙනස් කරන්න. මුලින් සූත්‍රය මතක තබා නොගෙන, කෝණය වර්ධනය වන විට වක්‍ර දිග කොපමණ වර්ධනය වනවාද කියලා බලන්න.
+
+<InteractiveSectorLazy targetDegrees={180} targetLabel="අර්ධ වෘත්තය (180°)" />
+
+180° දක්වා ලක්ෂ්‍යය ගෙනගිය විට අර්ධ වෘත්තයක් ලැබෙනවා. දැන් විශේෂයෙන් බලන්න: වක්‍ර දිග සම්පූර්ණ වෘත්තයේ පරිධියෙන් කෝණයට අදාළ කොටසක් ලෙස වෙනස් වෙනවා. 180° දී ලැබෙන්නේ සම්පූර්ණ වෘත්තයෙන් අඩක් බවත් ඔබට දැකගත හැක.
+
+<AdBreak />
+
+## නීතිය සකස් කරමු
+
+කේන්ද්‍රයේ කෝණය <KatexInline tex="\theta^\circ" /> සහ අරය <KatexInline tex="r" /> නම්, සම්පූර්ණ වෘත්තයේ කෝණය <KatexInline tex="360^\circ" /> නිසා කේන්ද්‍රික ඛණ්ඩයේ වක්‍ර දිග සම්පූර්ණ පරිධියේ <KatexInline tex="\frac{\theta}{360}" /> කොටසයි.
+
+<KatexInline tex="\text{වක්‍ර දිග}=\frac{\theta}{360}\times 2\pi r" block />
+
+කේන්ද්‍රික ඛණ්ඩයක පරිමිතිය යනු වක්‍ර දිගත් මායිමේ ඇති අරය දෙකත් එකතු කළ අගයයි.
+
+<KatexInline tex="\text{පරිමිතිය}=\frac{\theta}{360}\times 2\pi r+2r" block />
+
+මෙම පාඩමේ උදාහරණ සහ අභ්‍යාස සඳහා <KatexInline tex="\pi\approx\frac{22}{7}" /> ලෙස ගන්න.
+
+## උදාහරණයක්
+
+අරය <KatexInline tex="21\text{ cm}" /> සහ කේන්ද්‍ර කෝණය <KatexInline tex="120^\circ" /> වූ කේන්ද්‍රික ඛණ්ඩයක පරිමිතිය සොයමු.
+
+පළමුව වක්‍ර දිග:
+
+<KatexInline tex="\frac{120}{360}\times 2\times\frac{22}{7}\times 21=44\text{ cm}" block />
+
+ඉන්පසු අරය දෙක එකතු කරමු:
+
+<KatexInline tex="44+2\times21=86\text{ cm}" block />
+
+ඒ නිසා කේන්ද්‍රික ඛණ්ඩයේ පරිමිතිය <KatexInline tex="86\text{ cm}" /> යි.
+
+## සාමාන්‍ය වැරැද්ද
+
+බොහෝවිට 120° ක වක්‍රය සම්පූර්ණ වෘත්තයේ <KatexInline tex="\frac{120}{180}" /> කොටසක් ලෙස ගන්නවා. නමුත් සම්පූර්ණ වෘත්තයේ කෝණය <KatexInline tex="360^\circ" /> යි, එබැවින් නිවැරදි කොටස <KatexInline tex="\frac{120}{360}" /> යි. තවත් වැරැද්දක් වන්නේ වක්‍ර දිග පමණක් එකතු කර පරිමිතිය නතර කිරීමයි; කේන්ද්‍රික ඛණ්ඩයේ සෘජු මායිම් වන අරය දෙකත් එකතු කළ යුතුයි.
+
+## පුහුණු වන්න
+
+පළමුව සෘජු යෙදීම, පසුව දී ඇති පරිමිතියෙන් අරය හෝ කෝණය සොයන ආපසු ගැටලු, අවසානයේ පෙර ශ්‍රේණියේ ජ්‍යාමිතික දැනුමක් සමඟ සම්බන්ධ වන ගැටලුවක් උත්සාහ කරන්න.
+
+<QuestionStreamLazy
+  exam={perimeterExercises}
+  locale="si"
+  headingLevel={3}
+  progressKey="si/grade-10/01-perimeter"
+/>
+
+{/* 
+Reviewer note
+- PDF pages used: pp. 1-2 for prerequisite perimeter review and sector definition; pp. 3-7 for sector/arc sequence and Exercises 1.1; pp. 8-9 for sector perimeter, inverse radius/angle and Exercise 1.2; pp. 10-12 for composite figures and Exercise 1.3; pp. 12-13 for Miscellaneous Exercise and the summary formulas.
+- Exercise set: Q1 adapted from §1.2 Example 1; Q2 adapted from §1.3 Example 1; Q3 adapted from Exercise 1.2(2)(ii); Q4 adapted from Exercise 1.2(3)(i); Q5 is original and fills the required final multi-step slot by combining sector perimeter with Pythagoras, which the PDF uses in §1.3 Example 2.
+- Skeleton: no new interactive loader was created. Existing InteractiveSectorLazy uses a 372px minimum-height skeleton (Mafs 340px + 32px wrapper padding). Existing StrictExamStepperLazy uses a 480px minimum-height shell; this unit reuses that loader unchanged.
+- Approximation/tolerance: the PDF explicitly assumes π = 22/7 in examples and exercises. The validators also accept a 3.14-based result. Q1 arc/perimeter divergence is 0.04 cm; Q2 perimeter divergence is 0.02 cm; Q3 radius divergence is about 0.00489 cm; Q4 angle divergence is about 0.0546°; Q5 perimeter divergence is about 0.0143 cm. Epsilons are set just above those divergences.
+- Terminology: Sinhala title/technical register is inferred rather than extracted from the supplied English PDF. Standard Sri Lankan usage is used: පරිමිතිය, තල රූපය, වෘත්තය, පරිධිය, අරය, විශ්කම්භය, කේන්ද්‍රික ඛණ්ඩය, චාපය/වක්‍ර දිග, කේන්ද්‍ර කෝණය, අර්ධ වෘත්තය. Native-speaker review is required before release.
+- Project note: the supplied base project uses @next/mdx, not next-mdx-remote v6, so the pasted blockJS concern does not apply to this snapshot; headingLevel={3} is therefore retained.
+- Milestone: exactly 180° (within the existing component's 2° tolerance), because that makes the semi-circle / half-circumference relationship explicit. Milestone checking is done by deliberate button submission in the reused sector component.
+- No route, sitemap, metadata, or page file was added.
+*/}

@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useRef } from "react";
-import { ADSENSE_CLIENT_ID } from "@/lib/ad-config";
+import { ADSENSE_CLIENT_ID, ADSENSE_ENABLED } from "@/lib/ad-config";
 
 export type AdFormat = "auto" | "fluid" | "rectangle" | "horizontal";
 
@@ -28,7 +28,7 @@ export function AdUnit({ slotId, format = "auto", reservedHeight, layoutKey, cla
   const pushedRef = useRef(false);
 
   useEffect(() => {
-    if (pushedRef.current || !insRef.current) return;
+    if (!ADSENSE_ENABLED || pushedRef.current || !insRef.current) return;
     try {
       (window.adsbygoogle = window.adsbygoogle || []).push({});
       pushedRef.current = true;
@@ -44,16 +44,18 @@ export function AdUnit({ slotId, format = "auto", reservedHeight, layoutKey, cla
       style={{ minHeight: reservedHeight }}
       data-ad-slot-id={slotId}
     >
-      <ins
-        ref={insRef}
-        className="adsbygoogle"
-        style={{ display: "block", minHeight: reservedHeight, width: "100%" }}
-        data-ad-client={ADSENSE_CLIENT_ID}
-        data-ad-slot={slotId}
-        data-ad-format={format}
-        data-full-width-responsive="true"
-        {...(layoutKey ? { "data-ad-layout-key": layoutKey } : {})}
-      />
+      {ADSENSE_ENABLED ? (
+        <ins
+          ref={insRef}
+          className="adsbygoogle"
+          style={{ display: "block", minHeight: reservedHeight, width: "100%" }}
+          data-ad-client={ADSENSE_CLIENT_ID}
+          data-ad-slot={slotId}
+          data-ad-format={format}
+          data-full-width-responsive="true"
+          {...(layoutKey ? { "data-ad-layout-key": layoutKey } : {})}
+        />
+      ) : null}
     </div>
   );
 }
