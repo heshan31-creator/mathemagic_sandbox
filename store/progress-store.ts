@@ -3,6 +3,31 @@ import { persist, createJSONStorage } from "zustand/middleware";
 import type { Locale } from "@/lib/i18n";
 import type { ProgressItem, ProgressItemKind } from "@/lib/progress-types";
 
+const progressStorage = {
+  getItem: (name: string) => {
+    const value = localStorage.getItem(name);
+    if (value === null || value.trim() === "") {
+      if (value !== null) localStorage.removeItem(name);
+      return null;
+    }
+
+    try {
+      JSON.parse(value);
+      return value;
+    } catch {
+      console.warn(`Discarding invalid persisted progress data for "${name}".`);
+      localStorage.removeItem(name);
+      return null;
+    }
+  },
+  setItem: (name: string, value: string) => {
+    localStorage.setItem(name, value);
+  },
+  removeItem: (name: string) => {
+    localStorage.removeItem(name);
+  },
+};
+
 interface VisitInput {
   key: string;
   kind: ProgressItemKind;
@@ -75,7 +100,7 @@ export const useProgressStore = create<ProgressState>()(
     }),
     {
       name: "mathemagic-progress-v1",
-      storage: createJSONStorage(() => localStorage),
+      storage: createJSONStorage(() => progressStorage),
     }
   )
 );
